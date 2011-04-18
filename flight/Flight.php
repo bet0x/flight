@@ -132,8 +132,6 @@ class Flight {
             return $obj;
         }
 
-        $class = ucfirst($name);
-
         return ($shared) ?
             self::getInstance($class) :
             self::getClass($class);
@@ -374,7 +372,7 @@ class Flight {
      * @param string $class Class name
      */
     public static function autoload($class) {
-        $file = str_replace('\\', '/', str_replace('_', '/', $class)).'.php';
+        $file = str_replace('\\', '/', str_replace('_', '/', strtolower($class))).'.php';
         $base = (strpos($file, '/') === false) ? __DIR__ : (self::get('flight.lib.path') ?: '.');
 
         if (file_exists($base.'/'.$file)) {
